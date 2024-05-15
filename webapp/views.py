@@ -1,10 +1,17 @@
+import logging
+from  .filters import ExpenseFilter
 from .forms import AddCategoryForm, AddExpenseForm
 from .models import Category, Currency, Expense
+from .tables import ExpenseHTMxTable
+
 from django.contrib import messages
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from django_filters.views import FilterView
+from django_tables2 import SingleTableMixin
 
-
+# Get logger instance
+logger = logging.getLogger(__name__)
 
 # Request for index page
 def index(request):
@@ -20,3 +27,17 @@ def index(request):
         else:
             messages.error(request, "Please correct the errors below.")
     return render(request, 'index.html', {'form': form})
+
+# Request for responsive expense table
+class ExpenseHTMxTableView(SingleTableMixin, FilterView):
+    table_class = ExpenseHTMxTable
+    queryset = Expense.objects.all()
+    filterset_class = ExpenseFilter
+    paginate_by = 20
+
+    def get_template_names(self):
+        if self.request.htmx:
+            return ["expense_table_partial.html"]
+        else:
+            return ["expense_table_htmx.html"]
+

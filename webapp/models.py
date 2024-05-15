@@ -25,4 +25,4 @@ class Expense(models.Model):
     description =   models.TextField(blank  = True, null = True)
 
     def __str__(self):
-        f"{self.date} - {self.amount} {self.currency} / {self.category}"
+        return f"{self.date} - {self.amount} {self.currency} / {self.category}"
