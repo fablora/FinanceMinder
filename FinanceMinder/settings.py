@@ -39,9 +39,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_filters',
     'django_htmx',
+    'django_plotly_dash.apps.DjangoPlotlyDashConfig',
     'django_tables2',
     'crispy_forms',
     'crispy_bootstrap5',
+    'dash_apps',
+    'services',
     'webapp',
 ]
 
@@ -59,6 +62,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django_htmx.middleware.HtmxMiddleware',
+    'django_plotly_dash.middleware.BaseMiddleware',
+    'django_plotly_dash.middleware.ExternalRedirectionMiddleware',
 ]
 
 ROOT_URLCONF = 'FinanceMinder.urls'
@@ -137,7 +142,7 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
+# Enable logging events
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -154,3 +159,6 @@ LOGGING = {
     },
 }
 
+# Enables frames within HTML
+
+X_FRAME_OPTIONS = 'SAMEORIGIN'

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load plotly_dash %}
+
+{% block content %}
+
+    <h1>Expenses</h1>
+    <div>
+        {% plotly_app_bootstrap name="CategoryExpensesPie" %}
+    </div>
+    <style>
+        .embed-responsive-item {
+          /* Graph container styles*/
+          /* padding: 20px; */
+          background-color: transparent;
+          height: 100vh !important;
+          width: 65vw !important;
+          overflow-y: scroll !important;
+          overflow-x: scroll !important;
+        }
+      </style>
+
+{% endblock %}

@@ -41,3 +41,13 @@ class ExpenseHTMxTableView(SingleTableMixin, FilterView):
         else:
             return ["expense_table_htmx.html"]
 
+# Request for responsive bar chart        
+def bardashboard(request):
+    """View to render dashboard with Dash app."""
+    return render(request, "bar_chart.html")
+
+# Request for responsive pie chart
+def piedashboard(request):
+    """View to render dashboard with Dash app."""
+    return render(request, "pie_chart.html")
+
