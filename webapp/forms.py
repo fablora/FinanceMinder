@@ -3,7 +3,7 @@ from django.core.validators import RegexValidator
 from django.core.exceptions import ValidationError
 from .models import Currency, Category, Expense
 
-import datetime
+import datetime as dt
 
 # Add Currency Form
 
@@ -80,7 +80,7 @@ class AddExpenseForm(forms.ModelForm):
             'class' : 'form-control',
             'type' : 'date'  # Uses HTML5 date picker
         }),
-        initial = datetime.date.today  # Sets today's date as default
+        initial = dt.date.today  # Sets today's date as default
     )
 
     description = forms.CharField(
