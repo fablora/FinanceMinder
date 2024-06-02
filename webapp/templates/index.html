@@ -2,8 +2,10 @@
 
 {% block content %}
 
-<div class="col-md-6 offset-md-3">
-    <div class="card">
+<br/>
+<div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="card p-4 shadow" style="max-width: 500px; width: 100%;" id="addExpenseCard">
+        <div class="card-header border-0">New Expense</div>
         <div class="card-body">
             <form method="POST" action="{% url 'index' %}">
                 {% csrf_token %}
@@ -11,7 +13,7 @@
                 
                 {{ form.as_p }}
 
-                <button type="submit" class="btn btn-secondary"> Add Expense </button>
+                <button type="submit" class="btn btn-primary w-100 mt-3"> Add Expense </button>
             </form>
         </div>
     </div>

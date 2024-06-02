@@ -65,7 +65,14 @@ MIDDLEWARE = [
     'django_plotly_dash.middleware.BaseMiddleware',
     'django_plotly_dash.middleware.ExternalRedirectionMiddleware',
 ]
-
+'''
+DJANGO_TABLES2_TABLE_ATTRS = {
+    'class': 'table table-hover',
+    'thead': {
+        'class': 'table-light',
+    },
+}
+'''
 ROOT_URLCONF = 'FinanceMinder.urls'
 
 TEMPLATES = [
