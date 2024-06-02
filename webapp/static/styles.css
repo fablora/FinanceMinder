@@ -40,14 +40,15 @@
 /* Expense table style */
 
 .table-container {
-    border-radius: 15px; /* Adjust the value as needed */
-    overflow: hidden; /* Ensure that the rounded corners are visible */
+    border-radius: 8px; /* Table upper borders */
+    overflow: hidden; 
 }
 
 .table-container .table {
-    border-radius: 15px; /* Adjust the value as needed */
+    border-radius: 8px; /* Table bottom borders */
     overflow: hidden;
 }
+
 
 .table-container .table td, .table-container .table th {
     color: #f4f4f4; 
