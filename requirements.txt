@@ -1,0 +1,11 @@
+Django
+django-filter
+django-htmx
+django-plotly-dash
+django-tables2
+django-crispy-forms
+crispy-bootstrap5
+dash
+plotly
+mysql
+mysql-connector-python

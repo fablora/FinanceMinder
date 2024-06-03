@@ -47,4 +47,3 @@ def update_graph(start_date, end_date):
     fig = create_expense_piechart(categories, amounts, percentage)
     
     return fig
-
