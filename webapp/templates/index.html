@@ -4,7 +4,7 @@
 
 <br/>
 <div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
-    <div class="card p-4 shadow" style="max-width: 500px; width: 100%;" id="addExpenseCard">
+    <div class="card p-4 shadow" id="add-expense-card">
         <div class="card-header border-0">New Expense</div>
         <div class="card-body">
             <form method="POST" action="{% url 'index' %}">
@@ -13,12 +13,12 @@
                 
                 {{ expense_form.as_p }}
 
-                <button type="submit" class="btn btn-primary w-100 mt-3"> Add Expense </button>
+                <button type="submit" class="btn btn-primary w-100 mt-3" id="submit-expense-button"> Add Expense </button>
             </form>
         </div>
     </div>
 
-    <div class="card p-4 shadow" style="max-width: 500px; width: 100%;" id="addIncomeCard">
+    <div class="card p-4 shadow" id="add-income-card">
         <div class="card-header border-0">New Income</div>
         <div class="card-body">
             <form method="POST" action="{% url 'index' %}">
@@ -27,7 +27,7 @@
                 
                 {{ income_form.as_p }}
 
-                <button type="submit" class="btn btn-primary w-100 mt-3"> Add Income </button>
+                <button type="submit" class="btn btn-primary w-100 mt-3" id="submit-income-button"> Add Income </button>
             </form>
         </div>
     </div>

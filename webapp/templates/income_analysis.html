@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<br/>
+
+<div class="d-flex justify-content-between align-items-start" id="income-page-container">
+    <div class="card p-4 shadow" id="incomes-card">
+        <div class="card-header border-0">Incomes</div>
+        <div class="card-body">
+            <div class="incomes-list">
+                {% for item in income %}
+                <div class="income-entry d-flex justify-content-between">
+                    <div class="income-category">{{ item.category }}</div>
+                    <div class="income-amount">{{ item.amount }} {{ item.currency }}</div>
+                    <div class="income-date">{{ item.date }}</div>
+                </div>
+                <hr/>
+                {% endfor %}
+            </div> 
+            <button id="show-cpi-info" class="btn btn-primary mt-3">Show CPI Info</button>            
+        </div>
+    </div>
+    <div id="cpi-info" class="ms-auto">    
+        <div class="card" id="cpi-card">
+            <div class="card-body" id="income-card-body">
+                <p><strong>Current CPI:</strong> <span id="latest_cpi"></span></p>
+                <p><strong>CPI at Salary Time:</strong> <span id="salary_cpi"></span></p>
+                <p><strong>Real Salary:</strong> $ <span id="real_salary"></span></p>
+                <p><strong>Inflation Rate:</strong> <span id="inflation_rate"></span>%</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById('show-cpi-info').addEventListener('click', function() {
+    fetch("{% url 'income_page' %}", {
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById('latest_cpi').innerText = data.latest_cpi;
+        document.getElementById('salary_cpi').innerText = data.salary_cpi;
+        document.getElementById('real_salary').innerText = data.real_salary;
+        document.getElementById('inflation_rate').innerText = data.inflation_rate;
+        document.getElementById('cpi-info').style.display = 'block';
+    });
+});   
+</script>
+
+{% endblock %}

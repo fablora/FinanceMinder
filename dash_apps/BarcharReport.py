@@ -30,6 +30,7 @@ app.layout = html.Div(
         dcc.Graph(
             id = 'expense-bar-chart',
             figure = create_expense_barchart(),
+            style={ 'border-radius':'15px', 'background-color':'black'}
         )
     ])
 

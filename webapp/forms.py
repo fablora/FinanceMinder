@@ -48,6 +48,12 @@ class AddExpenseForm(forms.ModelForm):
         exclude = ()
         fields = ['amount', 'category' , 'currency', 'date', 'description', 'ongoing']
 
+    add_expense = forms.BooleanField( # Helper field for form submission
+        widget = forms.HiddenInput, 
+        initial = True,
+        required = False
+        )
+        
     category = forms.ModelChoiceField(
         queryset = Category.objects.all(),
         to_field_name = 'name',
@@ -78,7 +84,7 @@ class AddExpenseForm(forms.ModelForm):
     )
 
     description = forms.CharField(
-        required = True,
+        required = False,
         validators = [RegexValidator(regex = '^[A-Za-z0-9 ]+$', message = 'Description must contain only alphanumeric characters.')], 
         widget = forms.widgets.TextInput(attrs = {"placeholder":"Description", "class" : "form-control"}), 
         label = ""
@@ -115,6 +121,12 @@ class AddIncomeForm(forms.ModelForm):
         exclude = ()
         fields = ['amount', 'category' , 'currency', 'date', 'description', 'income_type']
 
+    add_income = forms.BooleanField( # Helper field for form submission
+        widget = forms.HiddenInput, 
+        initial = True,
+        required = False
+        )
+
     category = forms.ModelChoiceField(
         queryset = IncomeCategory.objects.all(),
         to_field_name = 'name',
@@ -145,7 +157,7 @@ class AddIncomeForm(forms.ModelForm):
     )
 
     description = forms.CharField(
-        required = True,
+        required = False,
         validators = [RegexValidator(regex = '^[A-Za-z0-9 ]+$', message = 'Description must contain only alphanumeric characters.')], 
         widget = forms.widgets.TextInput(attrs = {"placeholder":"Description", "class" : "form-control"}), 
         label = ""

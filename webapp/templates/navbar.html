@@ -15,15 +15,18 @@
               <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" id="expensesLink" href="{% url 'expenses_htmx' %}">Expenses</a>
+              <a class="nav-link" id="expenses-link" href="{% url 'expenses_htmx' %}">Expenses</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="incomes-link" href="{% url 'income_page' %}">Income</a>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Graphs
               </a>
               <ul class="dropdown-menu dropdown-menu-dark">
-                <li><a class="dropdown-item" id= "barChart" href="{% url 'bar_dashboard' %}">Bar Graph</a></li>
-                <li><a class="dropdown-item" id="pieChart" href="{% url 'pie_dashboard' %}">Pie Graph</a></li>
+                <li><a class="dropdown-item" id= "bar-chart-link" href="{% url 'bar_dashboard' %}">Bar Graph</a></li>
+                <li><a class="dropdown-item" id="pie-chart-link" href="{% url 'pie_dashboard' %}">Pie Graph</a></li>
                 <li>
                   <hr class="dropdown-divider">
                 </li>

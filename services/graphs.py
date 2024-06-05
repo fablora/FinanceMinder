@@ -25,13 +25,18 @@ def create_expense_barchart(categories = None, amounts = None):
             hoverinfo = None,
             hovertemplate = '%{x}: %{y:$.2f}',
             marker_color = '#008ac5',
+            marker_line_color = 'rgba(0,0,0,0)',
             name = ""
             )
     ])
 
     fig.update_layout(
         title = 'Total Expenses by Category',
-        template = 'plotly_dark'
+        paper_bgcolor = 'rgba(0,0,0,0)',
+        plot_bgcolor = 'rgb(0,0,0)',
+        font_color = '#e1e4e9',
+        yaxis = dict(gridcolor = '#283442', zerolinecolor = '#283442')
+        #template = 'plotly_dark'
     )
 
     return fig
