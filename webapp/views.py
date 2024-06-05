@@ -81,3 +81,7 @@ def pie_dashboard(request):
     """View to render dashboard with Dash app."""
     return render(request, "pie_chart.html")
 
+# Request for responsive line chart
+def line_dashboard(request):
+    """View to render dashboard with Dash app."""
+    return render(request, "expenses_line_chart.html")

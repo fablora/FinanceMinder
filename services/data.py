@@ -8,16 +8,23 @@ import numpy as np
 from functools import lru_cache 
 from .files import cached_download_cpi
 
-# Function to aggregate expense data by Category
-def get_category_expense_data(start_date = None, end_date = None):
+    
+# Function to get filtered expenses
+def get_filtered_expenses(start_date=None, end_date=None):
+   
     expenses = Expense.objects.all()
-
     if start_date:
-        expenses = expenses.filter(date__gte = start_date)
+        expenses = expenses.filter(date__gte=start_date)
     if end_date:
-        expenses = expenses.filter(date__lte = end_date)    
+       expenses = expenses.filter(date__lte=end_date)
+   
+    return expenses
 
-    data = expenses.values('category__name').annotate(total_sum = Sum('amount')).order_by('-total_sum')
+# Function to aggregate expense data by Category
+def get_category_expense_data(start_date=None, end_date=None):
+    
+    expenses = get_filtered_expenses(start_date, end_date)
+    data = expenses.values('category__name').annotate(total_sum=Sum('amount')).order_by('-total_sum')
     total_expenses = sum(item['total_sum'] for item in data)
     categories = [item['category__name'] for item in data]
     amounts = [item['total_sum'] for item in data]
@@ -25,7 +32,27 @@ def get_category_expense_data(start_date = None, end_date = None):
 
     return categories, amounts, percentage
 
+# Function to get monthly expense by category
+def get_monthly_expense_by_category(start_date=None, end_date=None):
+    
+    expenses = get_filtered_expenses(start_date = None, end_date = None)
 
+    data = list(expenses.values('date', 'amount', 'category__name'))
+    df = pd.DataFrame(data)
+    
+    df.rename(columns={'category__name': 'category'}, inplace = True)
+
+    df['date'] = pd.to_datetime(df['date'])
+    df.set_index('date', inplace = True)
+
+    monthly_expenses = df.groupby([pd.Grouper(freq = 'M'), 'category']).sum().reset_index()
+    
+    monthly_expenses_pivot = monthly_expenses.pivot(index = 'date', columns = 'category', values = 'amount')
+
+    # Fill NA values with 0
+    monthly_expenses_pivot =  monthly_expenses_pivot.fillna(0)
+
+    return monthly_expenses_pivot
 
 
 # Function to get latest CPI and the Salary CPI        

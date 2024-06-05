@@ -1,18 +1,20 @@
 import dash
 import datetime as dt
 
-from dash import dcc, html, Output, Input
+from dash import dcc, html, Input, Output
 from django_plotly_dash import DjangoDash
+
 from services.data import get_category_expense_data
-from services.graphs import create_expense_piechart
+from services.graphs import create_expense_barchart
+
 
 # Define app
-app = DjangoDash('CategoryExpensesPie')
+app = DjangoDash('categories_expenses_bar')
 
 app.layout = html.Div(
     [
         dcc.DatePickerRange(
-            id = 'pie-picker-range',
+            id = 'bar-picker-range',
             calendar_orientation = 'horizontal',
             day_size = 39,
             with_portal = False,
@@ -26,17 +28,18 @@ app.layout = html.Div(
 
         ),
         dcc.Graph(
-            id='expense-pie-chart',
-            figure=create_expense_piechart(),
+            id = 'expense-bar-chart',
+            figure = create_expense_barchart(),
+            style={ 'border-radius':'15px', 'background-color':'black'}
         )
     ])
 
 # Callback function
 @app.callback(
-    Output('expense-pie-chart', 'figure'),
+    Output('expense-bar-chart', 'figure'),
     [
-        Input('pie-picker-range', 'start_date'),
-        Input('pie-picker-range', 'end_date')
+        Input('bar-picker-range', 'start_date'),
+        Input('bar-picker-range', 'end_date')
     ]
 )
 
@@ -44,6 +47,6 @@ app.layout = html.Div(
 def update_graph(start_date, end_date):
     print(f"Date Range Changed: {start_date} to {end_date}")
     categories, amounts, percentage = get_category_expense_data(start_date, end_date)
-    fig = create_expense_piechart(categories, amounts, percentage)
+    fig = create_expense_barchart(categories, amounts)
     
     return fig

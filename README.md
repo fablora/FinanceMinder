@@ -93,6 +93,8 @@ You will need the following software and dependencies installed:
 * plotly
 * mysql
 * mysql-connector-python
+* pandas
+* numpy
 
 ### Installation
  Once Python is installed, just run the bellow command to install the dependencies
@@ -110,8 +112,6 @@ You will need the following software and dependencies installed:
 ## Roadmap
 
 * **Additional Features**
-- Ongoing Expense
 - Trend Analysis for Expenses
 - Trend Line Graph for Expenses
-- Fixed & Variable Income Track
-- Inflation-Adjusted Income Trend Analysis & Graph
+- Inflation-Adjusted Salary Calculation

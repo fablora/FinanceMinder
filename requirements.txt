@@ -9,3 +9,5 @@ dash
 plotly
 mysql
 mysql-connector-python
+pandas
+numpy
