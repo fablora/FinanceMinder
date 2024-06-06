@@ -8,11 +8,13 @@ from services.data import get_category_expense_data
 from services.graphs import create_expense_barchart
 
 
-# Define app
+# Define the app
 app = DjangoDash('categories_expenses_bar')
 
+# Define layout of the app
 app.layout = html.Div(
     [
+        # Data Picker Ranger component for filtering
         dcc.DatePickerRange(
             id = 'bar-picker-range',
             calendar_orientation = 'horizontal',
@@ -27,6 +29,7 @@ app.layout = html.Div(
 
 
         ),
+        # Graph component to display the chart
         dcc.Graph(
             id = 'expense-bar-chart',
             figure = create_expense_barchart(),
@@ -34,7 +37,7 @@ app.layout = html.Div(
         )
     ])
 
-# Callback function
+# Callback function to update the chart based on selected date range
 @app.callback(
     Output('expense-bar-chart', 'figure'),
     [
@@ -42,11 +45,32 @@ app.layout = html.Div(
         Input('bar-picker-range', 'end_date')
     ]
 )
-
-# Function to Update Bar Chart
 def update_graph(start_date, end_date):
-    print(f"Date Range Changed: {start_date} to {end_date}")
-    categories, amounts, percentage = get_category_expense_data(start_date, end_date)
-    fig = create_expense_barchart(categories, amounts)
+    '''
+    Updates the chart based on selected date range
+
+    Parameters:
+    start_date (str): start date of the range
+    end_date (str): end date of the range
+
+    Returns:
+    plotly.graph_objs._figure.Figure: Updated chart figure
+    '''
+    try:
+        # Log selected range
+        print(f"Date Range Changed: {start_date} to {end_date}")
+
+        # Get expenses data for the selected range
+        categories, amounts, percentage = get_category_expense_data(start_date, end_date)
+
+        # Create and return updated chart
+        fig = create_expense_barchart(categories, amounts)        
+        return fig
     
-    return fig
+    except ValueError as e:
+        # Catch error
+        print(f"Error updating graph: {e}") 
+
+        # Return empty figure
+        return create_expense_barchart()
+

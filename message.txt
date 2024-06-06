@@ -1,17 +1,4 @@
-feat: Add functionality for monthly expense trend visualization
+Add error handling and docstrings to various functions
 
-- Implemented `get_monthly_expense_by_category` function in `data.py` to aggregate expenses by month and category.
-  - Groups and sums expenses by month and category.
-  - Pivots the data to have categories as columns and fills missing values with 0.
-
-- Developed `create_expense_trend_chart` function in `graphs.py` to generate a responsive line chart for monthly expenses by category.
-  - Formats dates to 'Year-Month'.
-  - Uses a custom color palette for different categories.
-  - Configures the chart layout with titles, axis labels, and background colors.
-
-- Added `line_dashboard` view in `views.py` to render the dashboard with the new line chart.
-
-- Created a migration script to generate sample expense data for January to May 2024 (except April).
-  - Adds random expenses in different categories.
-
-- Included the migration operation in the Django migrations file.
+- Implemented general try-catch statements for improved error handling in multiple functions.
+- Added detailed docstrings to all functions for better documentation and code readability.
