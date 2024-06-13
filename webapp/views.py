@@ -2,10 +2,10 @@ import logging
 import requests
 
 from .filters import ExpenseFilter
-from .forms import AddCategoryForm, AddExpenseForm, AddIncomeForm
-from .models import Category, Currency, Expense, Income
+from .forms import AddExpenseForm, AddIncomeForm
+from .models import Expense, Income, IncomeCategory
 from .tables import ExpenseHTMxTable
-from services.data import get_cpis, real_salary
+from services.data import calculate_real_salary, prepare_salary_trend_data
 
 from django.contrib import messages
 from django.http import HttpResponse, JsonResponse
@@ -24,6 +24,8 @@ def index(request):
     expense_form = AddExpenseForm(request.POST or None)
     income_form = AddIncomeForm(request.POST or None)
 
+    salary_category = IncomeCategory.objects.get(name = 'Salary')
+
     if request.method == "POST":
         if 'add_expense' in request.POST:
             if expense_form.is_valid():
@@ -34,7 +36,13 @@ def index(request):
                 messages.error(request, "Please correct the errors below.")
         elif 'add_income' in request.POST:
             if income_form.is_valid():
-                new_income = income_form.save()
+                new_income = income_form.save(commit = False)
+                if new_income.category == salary_category:
+                    existing_salary = Income.objects.filter(category = salary_category).first()
+                    if existing_salary:
+                        messages.warning(request, "An existing salary will be replaced.")
+                        existing_salary.delete()
+                new_income.save()        
                 messages.success(request, "Income Added Successfully")
                 return redirect('index')
             else:
@@ -57,13 +65,15 @@ class ExpenseHTMxTableView(SingleTableMixin, FilterView):
 def income_page(request):
     if request.is_ajax():
 
-        real_salary_amount, latest_cpi, salary_cpi, salary_inflation_rate = real_salary()
+        real_salary_amount, latest_cpi, salary_cpi, salary_inflation_rate = calculate_real_salary()
+        salary_trend_data = prepare_salary_trend_data()
 
         context = {
             'latest_cpi': latest_cpi,
             'salary_cpi': salary_cpi,
             'real_salary': real_salary_amount,
-            'inflation_rate': salary_inflation_rate
+            'inflation_rate': salary_inflation_rate,
+            'salary_trend_data': salary_trend_data
         }
 
         return JsonResponse(context)

@@ -128,29 +128,25 @@ def get_cpis():
         if not salary:
             raise ValueError("No salary entry found")
         
+        # Formats salary's date for filtering purposes
         salary_date = datetime(year=salary.year, month=salary.month, day=1)
+
+        # Defines salary's index
+        salary_idx = np.searchsorted(cpi_series.index, salary_date, side = "right")-1
+
+        salary_cpi = cpi_series.iloc[salary_idx]
+
+        cpi_range = cpi_series.iloc[salary_idx:]
         
-        # Inner function to search for salary cpi
-        def get_salary_cpi():
 
-            salary_cpi = np.array(
-            cpi_series[np.searchsorted(cpi_series.index, salary_date, side="right") - 1],
-                dtype=float,
-            )
-
-            if salary_cpi.size == 1:
-                return salary_cpi.item()
-
-            return salary_cpi
-
-        return latest_cpi, get_salary_cpi()
+        return latest_cpi, salary_cpi, cpi_range, salary_date
     
     except Exception as e:
         print(f"Error getting CPI data: {e}")
 
 
 # Function to calculate real salary
-def real_salary():
+def calculate_real_salary():
    '''
    Calculate real salary adjusted for inflation
 
@@ -159,7 +155,7 @@ def real_salary():
    '''
    
    try:
-        latest_cpi, salary_cpi = get_cpis()
+        latest_cpi, salary_cpi, cpi_range, salary_date = get_cpis()
 
         if latest_cpi is None or salary_cpi is None:
             raise ValueError("CPI data not available")
@@ -180,3 +176,26 @@ def real_salary():
    except Exception as e:
        print(f"Error calculating real salary: {e}")
        return None, None, None, None
+  
+def prepare_salary_trend_data():
+
+    try:
+        latest_cpi, salary_cpi, cpi_range, salary_date = get_cpis()
+        if latest_cpi is None or salary_cpi is None:
+            raise ValueError("CPI data not availbale")
+        
+        salary_entry =  Income.objects.get(category__name = 'Salary')
+        salary_amount = salary_entry.amount
+
+        trend_data = []
+
+        for date, cpi in cpi_range.items():
+            inflation_rate = float((cpi - salary_cpi) / salary_cpi * 100)
+            adjusted_salary = float(salary_amount) / (1 + (inflation_rate / 100))
+            trend_data.append((date, round(adjusted_salary, 2)))
+
+        return trend_data
+    
+    except Exception as e:
+        print(f"Error preparing salary trend data: {e}")
+        return []      

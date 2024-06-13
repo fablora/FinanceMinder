@@ -1,6 +1,6 @@
 from django.urls import path, include
 from .views import bar_dashboard, pie_dashboard, income_page, line_dashboard
-from dash_apps import barchart_graph, piechart_graph, line_graph
+from dash_apps import barchart_graph, piechart_graph, line_graph#, adjusted_salary_graph
 from . import views
 
 

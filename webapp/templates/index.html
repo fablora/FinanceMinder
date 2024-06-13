@@ -7,7 +7,7 @@
     <div class="card p-4 shadow" id="add-expense-card">
         <div class="card-header border-0">New Expense</div>
         <div class="card-body">
-            <form method="POST" action="{% url 'index' %}">
+            <form id="expense_form" method="POST" action="{% url 'index' %}">
                 {% csrf_token %}
 
                 
@@ -21,7 +21,7 @@
     <div class="card p-4 shadow" id="add-income-card">
         <div class="card-header border-0">New Income</div>
         <div class="card-body">
-            <form method="POST" action="{% url 'index' %}">
+            <form id= "income-form" method="POST" action="{% url 'index' %}">
                 {% csrf_token %}
 
                 
@@ -32,5 +32,19 @@
         </div>
     </div>
 </div>
+
+<script>
+document.getElementById('income-form').addEventListener('submit', function(event) {
+    let salaryCategory = "{{ salary_category.id }}";
+    let selectedCategory = document.getElementById('id_category').value;
+
+    if (selectedCategory == salaryCategory) {
+        let confirmation = confirm("An existing salary will be replaced. Do you want to continue?");
+        if (!confirmation) {
+            event.preventDefault();
+        }
+    }
+});
+</script>
 
 {% endblock %}

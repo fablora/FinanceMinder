@@ -33,22 +33,16 @@
     </div>
 </div>
 
-<script>
-document.getElementById('show-cpi-info').addEventListener('click', function() {
-    fetch("{% url 'income_page' %}", {
-        headers: {
-            'X-Requested-With': 'XMLHttpRequest'
-        }
-    })
-    .then(response => response.json())
-    .then(data => {
-        document.getElementById('latest_cpi').innerText = data.latest_cpi;
-        document.getElementById('salary_cpi').innerText = data.salary_cpi;
-        document.getElementById('real_salary').innerText = data.real_salary;
-        document.getElementById('inflation_rate').innerText = data.inflation_rate;
-        document.getElementById('cpi-info').style.display = 'block';
-    });
-});   
-</script>
+<!-- Line chart component --> 
+<div class="mt-4" id="line-chart-container" style="display: none;">
+    <div id="salary-trend-chart"></div>
+</div>
+
+<!-- Plotly library -->
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+<!-- Import Js script for chart generation -->
+{% load static %}
+<script src="{% static 'js/adjusted_salary_graph.js' %}"></script>
 
 {% endblock %}

@@ -2,7 +2,7 @@ import plotly.graph_objects as go
 import plotly.express as px
 import datetime as dt
 
-from .data import get_category_expense_data, get_monthly_expense_by_category
+from .data import get_category_expense_data, get_monthly_expense_by_category, prepare_salary_trend_data
 
 
 # Function to create Barchart
@@ -99,6 +99,8 @@ def create_expense_piechart(categories = None, amounts = None, percentage = None
     
     except Exception as e:
         print(f"Error creating expense pie chart: {e}")
+        return go.Figure()
+
 
 def create_expense_trend_chart():
     '''
@@ -174,3 +176,4 @@ def create_expense_trend_chart():
     except Exception as e:
         print(f"Error creating expense trend chart: {e}")
         return None
+
