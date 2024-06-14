@@ -1,41 +1,43 @@
-{% extends 'base.html' %}
+{% extends 'dash_base.html' %}
 
 {% block content %}
 
-<br/>
-
-<div class="d-flex justify-content-between align-items-start" id="income-page-container">
-    <div class="card p-4 shadow" id="incomes-card">
-        <div class="card-header border-0">Incomes</div>
-        <div class="card-body">
-            <div class="incomes-list">
-                {% for item in income %}
-                <div class="income-entry d-flex justify-content-between">
-                    <div class="income-category">{{ item.category }}</div>
-                    <div class="income-amount">{{ item.amount }} {{ item.currency }}</div>
-                    <div class="income-date">{{ item.date }}</div>
+<div class="row g-0">
+    <div class="col-md-3">
+        <section class="sidebar" id="income-page-container">
+            <div class="card p-4 shadow" id="incomes-card">
+                <div class="card-header border-0">Incomes</div>
+                <div class="card-body">
+                    <div class="incomes-list">
+                        {% for item in income %}
+                        <div class="income-entry d-flex justify-content-between">
+                            <div class="income-category">{{ item.category }}</div>
+                            <div class="income-amount">{{ item.amount }} {{ item.currency }}</div>
+                            <div class="income-date">{{ item.date }}</div>
+                        </div>
+                        <hr/>
+                        {% endfor %}
+                    </div> 
+                    <button id="show-cpi-info" class="btn btn-primary mt-3">Show CPI Info</button>            
                 </div>
-                <hr/>
-                {% endfor %}
-            </div> 
-            <button id="show-cpi-info" class="btn btn-primary mt-3">Show CPI Info</button>            
-        </div>
+            </div>
+        </section>  
     </div>
-    <div id="cpi-info" class="ms-auto">    
-        <div class="card" id="cpi-card">
-            <div class="card-body" id="income-card-body">
-                <p><strong>Current CPI:</strong> <span id="latest_cpi"></span></p>
-                <p><strong>CPI at Salary Time:</strong> <span id="salary_cpi"></span></p>
-                <p><strong>Real Salary:</strong> $ <span id="real_salary"></span></p>
-                <p><strong>Inflation Rate:</strong> <span id="inflation_rate"></span>%</p>
+    <div class="col-md-9 position-relative">
+        <div id="line-chart-container" class="position-relative">
+            <div id="salary-trend-chart"></div>
+            <div id="cpi-info" class="position-absolute top-0 end-0 p-2">
+                <div class="card" id="cpi-card">
+                    <div class="card-body" id="income-card-body">
+                        <p><strong>Current CPI:</strong> <span id="latest_cpi"></span></p>
+                        <p><strong>CPI at Salary Time:</strong> <span id="salary_cpi"></span></p>
+                        <p><strong>Real Salary:</strong> $ <span id="real_salary"></span></p>
+                        <p><strong>Inflation Rate:</strong> <span id="inflation_rate"></span>%</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
-
-<!-- Line chart component --> 
-<div class="mt-4" id="line-chart-container" style="display: none;">
-    <div id="salary-trend-chart"></div>
 </div>
 
 <!-- Plotly library -->

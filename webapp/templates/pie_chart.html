@@ -3,20 +3,22 @@
 
 {% block content %}
     <br/>
-    <h1>Expenses</h1>
-    <div>
-        {% plotly_app_bootstrap name="categories_expenses_pie" %}
-    </div>
-    <style>
-        .embed-responsive-item {
-          /* Graph container styles*/
-          /* padding: 20px; */
-          background-color: transparent;
-          height: 100vh !important;
-          width: 65vw !important;
-          overflow-y: scroll !important;
-          overflow-x: scroll !important;
-        }
-      </style>
+    <div class="container">
+      <h1>Expenses</h1>
+      <div>
+          {% plotly_app_bootstrap name="categories_expenses_pie" %}
+      </div>
+      <style>
+          .embed-responsive-item {
+            /* Graph container styles*/
+            /* padding: 20px; */
+            background-color: transparent;
+            height: 100vh !important;
+            width: 65vw !important;
+            overflow-y: scroll !important;
+            overflow-x: scroll !important;
+          }
+        </style>
+    </div>  
 
 {% endblock %}

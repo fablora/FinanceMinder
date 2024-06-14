@@ -1,5 +1,1 @@
-Added JavaScript validation for salary category replacement in income form. Implemented adjusted salary trend graph and related data preparation.
-
-- Added JavaScript validation to index.html to confirm salary replacement in income form submission.
-- Implemented JavaScript script to generate an adjusted salary trend graph, including fetching data and plotting using Plotly.
-- Created `prepare_salary_trend_data` function to prepare data for the salary trend graph, handling CPI data retrieval and calculation of adjusted salaries.
+Adjusted Income Analysis Page layout

@@ -1,0 +1,76 @@
+/* Income Page Style */
+.income-list {
+    padding: 15px;
+    margin-top: 10px;
+}
+
+.income-entry {
+    padding: 10px 0;
+    border-bottom: 1px solid #444;
+}
+
+.income-category, .income-amount, .income-date {
+    font-size: 1em;
+    color: #e1e4e9;
+}
+
+#incomes-card {
+    margin-bottom: 20px;
+    max-width: 500px; 
+    width: 100%;
+    background-color: #222;
+    border-color: transparent;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: 90vh;
+}
+
+#show-cpi-info {
+    background-color: #008ac5;
+    border-color: transparent;
+}
+
+#cpi-info {
+    display:none; 
+    max-width: 200px; 
+    width: 70%;
+    background-color: transparent;
+    font-size: 0.9em;
+    margin-right: 250px;
+    margin-top: 100px;
+}
+
+#cpi-card {
+    background: transparent;
+    border-color: transparent;
+    color: #e1e4e9;    
+    font-size: 80%;
+    padding: 0px;
+}
+
+#income-card-body {
+    margin: 5px 0;
+    margin-right: 0%;
+    margin-bottom: 0%;
+}
+
+#line-chart-container {
+    margin-top: 20px;
+    margin-left: 20px;
+    height: calc(100vh - 100px);
+    position: relative;
+}
+
+#salary-trend-chart {
+    width: 75%;
+    height: 75%;
+}
+
+.sidebar {
+    height: 100vh;
+    overflow-y: auto; /* Add scroll if content exceeds height */
+}
+
+.col-md-3, .col-md-9 {
+    height: 100vh;
+    overflow-y: auto; /* Add scroll if content exceeds height */
+}
